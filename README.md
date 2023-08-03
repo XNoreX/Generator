@@ -1,37 +1,37 @@
 # Generator
-Процедурный генератор дорог и зданий
+Procedural generator of roads and buildings
 
-Для того, чтобы использовать процедурный генератор необходимо класс «BP_Generator» перенести на сцену и настроить его параметры, для этого нужно выбрать генератор на сцене и перейти во вкладку Details:
-«Road Modules» – массив с тайлами дорог, можно указать прямую дорогу и перекрёсток (Этого достаточно), тайлы зданий сюда помещать не нужно.
-«House Modules» – массив с тайлами зданий, можно указывать сколько угодно.
-«Area Size» – параметр отвечающий за размер области генерации.
+In order to use the procedural generator, you need to move the "BP_Generator" class to the stage and configure its parameters, for this you need to select the generator on the stage and go to the Details tab:
+"Road Modules" is an array with road tiles, you can specify a straight road and an intersection (This is enough), building tiles do not need to be placed here.
+"House Modules" is an array with building tiles, you can specify as many as you want.
+"Area Size" is the parameter responsible for the size of the generation area.
 
-После того, как все тайлы указаны и параметр размера зоны генерации тоже первым делом необходимо сгенерировать дороги, за это отвечает кнопка «Generate Roads». Если сетка дорог Вам не понравилась, то Вы можете снова нажать на кнопку «Generate Roads» и цикл повторится. 
+After all the tiles are specified and the parameter of the size of the generation zone is also the first thing you need to generate roads, the "Generate Roads" button is responsible for this. If you don't like the road grid, then you can click on the "Generate Roads" button again and the cycle will repeat. 
 
-После того, как дорожная сетка будет создана Вы можете заполнить пустое пространство между дорог зданиями, за это отвечает кнопка «Generate House», работает аналогично генерации дорог.
+After the road grid is created, you can fill the empty space between the roads with buildings, the "Generate House" button is responsible for this, it works similarly to the generation of roads.
 
-Кнопки «Clear Roads» и «Clear House» отвечают за очистку сетки от соответствующих типов тайлов, при нажатии на эти кнопки полного удаления тайлов не происходит, тайлы удаляются частями при каждом нажатии.
+The "Clear Roads" and "Clear House" buttons are responsible for clearing the grid of the corresponding tile types, when you click on these buttons, there is no complete removal of tiles, the tiles are removed in parts each time you click.
 
-Кнопка «Clear All»  полностью и моментально очищает область генерации от всех тайлов.
+The "Clear All" button completely and instantly clears the generation area of all tiles.
 
-Параметры тайла
-Сам actor тайла наследуется от класса BP_Module и имеет следующие параметры:
-Можно создавать сколько угодно тайлов, важно наследовать их от материнского класса "BP_Module"
-Сокеты X; -X; Y; -Y; К этим сокетам крепятся последующие тайлы при генерации, для дорог настоятельно рекомендуется не передвигать сокеты в разных направлениях по их плоскости (Необходимо доработать)
-Static Mesh – основной статический меш объекта, сюда можно поместить 3д модель объекта такого масштаба, чтобы его границы помещались в границы сокетов. Так же можно добавлять дополнительные Static Mesh.
+Tile Parameters
+The actor tile itself inherits from the BP_Module class and has the following parameters:
+You can create as many tiles as you want, it is important to inherit them from the parent class "BP_Module"
+Sockets X; -X; Y; -Y; Subsequent tiles are attached to these sockets during generation, for roads it is strongly recommended not to move sockets in different directions along their plane (Needs to be finalized)
+Static Mesh is the main static mesh of an object, here you can place a 3d model of an object of such a scale that its boundaries fit into the boundaries of sockets. You can also add additional Static Mesh.
 
-Параметры Default:
-Module Type – тип данного модуля, хранятся в Enum классе «E_ModuleType». Можно добавлять свои.
-Allowed Road Module Type – Массив с типами возможных дорожных модулей
-Allowed Roads Sockets – Массив с доступными сокетами на местах которых будут генерироваться разрешённые дорожные модули.
-Allowed House Sockets - Массив с доступными сокетами на местах которых будут генерироваться указанные в классе генератора модули зданий.
-
-
+The Default:
+Module Type parameters are the type of this module, stored in the Enum class "E_ModuleType". You can add your own.
+Allowed Road Module Type – Array with types of possible road modules
+Allowed Roads Sockets – An array with available sockets on the places where allowed road modules will be generated.
+Allowed House Sockets - An array with available sockets where the building modules specified in the generator class will be generated.
 
 
-Плагин для процедурной генерации позволяет создавать сети дорог из тайлов прямого типа и перекрёстков, а так-же создавать здания внутри образовывающихся полостей, но при генерации сети дорог есть необходимость доработать алгоритм генерации в следующем:
 
-1). Можно добавить тайлам вероятность создания для того, чтобы чаще создавались прямые участки и места для зданий было больше.
-2). В некоторых местах прямая дорога подходит практически вплотную в другой прямой дороге, которая стоит боком, необходимо обратить внимание на этот момент.
-3). На данном этапе невозможно создавать очень большие тайлы, их размер ограничен радиусом в 100units, это необходимо доработать в будущем.
-4). При создании тайла можно спавнить тайл не на месте сокета соседнего тайла, а производить Atach Socket To Socket.
+
+The plug-in for procedural generation allows you to create road networks from direct type tiles and intersections, as well as create buildings inside the resulting cavities, but when generating a road network, there is a need to refine the generation algorithm in the following:
+
+1). You can add the probability of creating tiles so that straight sections are created more often and there are more places for buildings.
+2). In some places, a straight road comes almost close to another straight road that stands sideways, you need to pay attention to this point.
+3). At this stage, it is impossible to create very large tiles, their size is limited to a radius of 100units, this needs to be finalized in the future.
+4). When creating a tile, you can spawn a tile not in place of the socket of a neighboring tile, but produce an Atach Socket To Socket.
